@@ -18,7 +18,8 @@
             "register": {
                 "led_drivers": ["ws2812_driver_desc"]
             },
-            "board-blocks": ["led:ws2812"]
+            "board-blocks": ["led:ws2812"],
+            "ide-stubs": ["ide/led-ws2812.stub"]
         }
     }
 }

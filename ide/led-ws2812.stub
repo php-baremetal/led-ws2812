@@ -1,0 +1,41 @@
+<?php
+// php-baremetal/led-ws2812 1.1.0 — IDE helper, not loaded at runtime.
+
+namespace Baremetal\Led\Driver {
+    /**
+     * A strip of WS2812 and WS2812B addressable RGB LEDs (strips, rings, a single on-board LED): three channels,
+     * GRB byte order by default. Extends Baremetal\Led\Device, which implements Baremetal\Output\Led.
+     *
+     * The buffer methods (pixel(), fill(), hsv(), set(), show(), off(), count()) and onboard() come from
+     * Baremetal\Led\Device. $order accepts only GRB and RGB; anything else throws \ValueError. Standard strips are
+     * GRB; if red and green come out swapped, pass Ws2812::RGB.
+     */
+    class Ws2812 extends \Baremetal\Led\Device
+    {
+        /** Colour order on the wire: green, red, blue (the default). */
+        public const GRB = 0;
+
+        /** Colour order on the wire: red, green, blue (some on-board LEDs). */
+        public const RGB = 1;
+
+        /**
+         * Creates the strip on one data pin, then clears it: every pixel is sent as off.
+         *
+         * While serving an HTTP request (web-server runtime) the strip is not cleared, so the LEDs keep what the
+         * previous request showed; the buffer starts at off either way. To replace a strip, set the old variable
+         * to null first. A strip object cannot be cloned.
+         *
+         * @param int $pin GPIO number of the data line.
+         * @param int $count Number of pixels, at least 1; 1 for a single on-board LED.
+         * @param int|null $order Byte order on the wire, Ws2812::GRB or Ws2812::RGB; null uses GRB.
+         * @throws \ValueError "...: Argument #1 ($pin) must be a valid GPIO" for a negative $pin, "...: Argument #2
+         *                     ($count) must be at least 1", or "...: Argument #3 ($order) must be one of the GRB,
+         *                     RGB constants".
+         * @throws \Exception "cannot init ws2812 on GPIO N" (the pin is not usable, no free transmit channel, or no
+         *                    memory), "cannot init ws2812: GPIO N is already used by another LED strip", "cannot
+         *                    init ws2812 on GPIO N: 16 LED strips are already open", or "LED refresh failed on
+         *                    GPIO N (error E)".
+         */
+        public function __construct(int $pin, int $count = 1, ?int $order = null) {}
+    }
+}
