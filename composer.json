@@ -17,7 +17,8 @@
         "baremetal": {
             "register": {
                 "led_drivers": ["ws2812_driver_desc"]
-            }
+            },
+            "board-blocks": ["led:ws2812"]
         }
     }
 }

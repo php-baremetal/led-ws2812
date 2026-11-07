@@ -15,6 +15,8 @@ composer require php-baremetal/led-ws2812
 The package requires ext-led, so this line is enough; conductor adds the LED-strip HAL for your platform
 (`esp32-ledstrip-hal` on ESP32).
 
+It declares the board block `led:ws2812`, so `phpbm init` and `phpbm board` offer it on boards with an on-board WS2812.
+
 ## Example
 
 ```php
